@@ -4,23 +4,35 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
-
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="778.0" prefWidth="966.0" style="-fx-background-image: url('https://media.istockphoto.com/id/1154425711/vector/quiz-banner-with-yellow-neon-question-mark-in-realistic-style-on-dark-brick-wall-background.jpg');" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="TriviaController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="776.0" prefWidth="1380.0" style="-fx-background-image: url('https://img.freepik.com/premium-vector/multiple-choice-quiz-template_515038-14332.jpg'); -fx-background-repeat: no-repeat; -fx-background-size: 1380px 776px;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="TriviaController">
    <children>
-      <Label fx:id="questionBox" alignment="CENTER" layoutX="259.0" layoutY="148.0" prefHeight="162.0" prefWidth="449.0" text="Question">
+      <Label fx:id="ScoreBox" alignment="TOP_LEFT" layoutX="25.0" layoutY="31.0" prefHeight="130.0" prefWidth="306.0" text="Score:">
          <font>
             <Font name="Arial Black" size="24.0" />
          </font>
       </Label>
-      <Label fx:id="ScoreBox" alignment="TOP_LEFT" layoutX="25.0" layoutY="31.0" prefHeight="130.0" prefWidth="306.0" text="SCORE: ">
+      <Button fx:id="answer1" layoutX="209.0" layoutY="349.0" mnemonicParsing="false" onAction="#answerSelected" prefHeight="152.0" prefWidth="407.0" text="answer1">
          <font>
-            <Font name="Arial Black" size="24.0" />
+            <Font name="Tahoma" size="24.0" />
+         </font></Button>
+      <Button fx:id="answer3" layoutX="209.0" layoutY="528.0" mnemonicParsing="false" onAction="#answerSelected" prefHeight="152.0" prefWidth="407.0" text="answer3">
+         <font>
+            <Font name="Tahoma" size="24.0" />
+         </font></Button>
+      <Button fx:id="answer2" layoutX="872.0" layoutY="349.0" mnemonicParsing="false" onAction="#answerSelected" prefHeight="152.0" prefWidth="407.0" text="answer2">
+         <font>
+            <Font name="Tahoma" size="24.0" />
+         </font></Button>
+      <Button fx:id="answer4" layoutX="872.0" layoutY="528.0" mnemonicParsing="false" onAction="#answerSelected" prefHeight="152.0" prefWidth="407.0" text="answer4">
+         <font>
+            <Font name="Tahoma" size="24.0" />
+         </font></Button>
+      <Text fx:id="questionBox" layoutX="489.0" layoutY="152.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Question" wrappingWidth="567.13671875">
+         <font>
+            <Font size="24.0" />
          </font>
-      </Label>
-      <Button fx:id="answer1" layoutX="111.0" layoutY="377.0" mnemonicParsing="false" onAction="#answerSelected" prefHeight="190.0" prefWidth="356.0" text="answer1" />
-      <Button fx:id="answer3" layoutX="111.0" layoutY="578.0" mnemonicParsing="false" onAction="#answerSelected" prefHeight="183.0" prefWidth="356.0" text="answer3" />
-      <Button fx:id="answer2" layoutX="493.0" layoutY="377.0" mnemonicParsing="false" onAction="#answerSelected" prefHeight="190.0" prefWidth="356.0" text="answer2" />
-      <Button fx:id="answer4" layoutX="493.0" layoutY="574.0" mnemonicParsing="false" onAction="#answerSelected" prefHeight="190.0" prefWidth="356.0" text="answer4" />
+      </Text>
    </children>
 </AnchorPane>
