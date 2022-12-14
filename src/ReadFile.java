@@ -1,7 +1,11 @@
 import java.io.File;
 import java.util.Scanner;
 import javax.swing.JOptionPane;
-
+/**
+ * This Class will read the questions and answers from the txt file
+ * @author BenA
+ *
+ */
 public class ReadFile {
 	private static Scanner input;
 	private static File TriviaQuestions=new File("TriviaQuestions.txt");

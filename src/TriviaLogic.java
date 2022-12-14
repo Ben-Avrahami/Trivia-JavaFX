@@ -1,4 +1,8 @@
-
+/**
+ * This class will contain the logic for the Trivia Game
+ * @author BenA
+ *
+ */
 public class TriviaLogic {
 	private String _correctAnswer;
 	private int _score;
@@ -37,5 +41,5 @@ public class TriviaLogic {
 	public int get_score() {
 		return _score;
 	}
-	
+
 }

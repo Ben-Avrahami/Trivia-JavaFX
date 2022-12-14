@@ -9,7 +9,11 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.text.Text;
-
+/**
+ * This Class is the controller for the Trivia Game
+ * @author BenA
+ *
+ */
 public class TriviaController {
 
 	@FXML
@@ -31,7 +35,13 @@ public class TriviaController {
 	private Text questionBox;
 
 	private TriviaLogic game; 
-	
+
+	private ArrayList<Answers> answers;
+
+	private int indexOfNextQuestion=0;
+
+	private Answers currQuestion;
+
 	/*
 	 * This method initializes a game
 	 */
@@ -39,16 +49,17 @@ public class TriviaController {
 		ReadFile.openFile();//opens the questions and answers file
 		game=new TriviaLogic();//creates a game of triviaLogic
 		setScore();//set the score to 0;
-		setGameRound();//sets the game for the round	
+		answers = new ArrayList<Answers>();
+		setQuestionsAndAnswers();
+		setGameRound();//sets the game for the round
 	}
-	
+
 	/*
 	 * This method sets a next round of the game
 	 * changes the question and the possible four answers
 	 */
 	private void setGameRound(){
-		String question=ReadFile.nextLine();
-		if (question.equals("Game Ended")) {
+		if (indexOfNextQuestion==answers.size()) {//if all questions were played already
 			Alert alert = new Alert(AlertType.CONFIRMATION); 
 			alert.setTitle("Game Ended");
 			alert.setHeaderText("You have reached the end of the game");
@@ -56,34 +67,29 @@ public class TriviaController {
 			Optional<ButtonType> option = alert.showAndWait();
 			if(option.get()==ButtonType.OK) {
 				restart();
-				question=ReadFile.nextLine();
 			}
 			else if (option.get() == ButtonType.CANCEL){
 				ReadFile.closeInput();//closes the Text file
 				System.exit(0);//stops the game from running
 			}
 		}
-		questionBox.setText(question);
-		game.setCorrectAnswer(ReadFile.nextLine());
-		ArrayList<String> answers = new ArrayList<String>();
-		answers.add(game.getCorrectAnswer());
-		answers.add(ReadFile.nextLine());
-		answers.add(ReadFile.nextLine());
-		answers.add(ReadFile.nextLine());
-		Collections.shuffle(answers);//shuffles the answers
-		answer1.setText(answers.get(0));
-		answer2.setText(answers.get(1));
-		answer3.setText(answers.get(2));
-		answer4.setText(answers.get(3));
+		currQuestion=answers.get(indexOfNextQuestion);//gets the next Answers from answers class
+		indexOfNextQuestion++;
+		questionBox.setText(currQuestion.getQuestion());
+		game.setCorrectAnswer(currQuestion.getCorrectAnswer());
+		answer1.setText(currQuestion.getAnswers().get(0));
+		answer2.setText(currQuestion.getAnswers().get(1));
+		answer3.setText(currQuestion.getAnswers().get(2));
+		answer4.setText(currQuestion.getAnswers().get(3));
 	}
-	
+
 	/*
 	 * This method sets the score
 	 */
 	private void setScore() {
 		ScoreBox.setText("Score: "+game.get_score());
 	}
-	
+
 	/*
 	 * This method checks if the chosen answers is correct and sets the game for next round by calling setGameRound method
 	 */
@@ -94,7 +100,7 @@ public class TriviaController {
 		setScore();
 		setGameRound();
 	}
-	
+
 	/*
 	 * This method displays a message if the answer was correct or incorrect and allows the player to choose to close the game or continue for the next question
 	 */
@@ -117,13 +123,33 @@ public class TriviaController {
 			System.exit(0);//stops the game from running
 		}
 	}
-	
+
+	/*
+	 * This method sets all the questions and answers which are returned by ReadFile into answers arrayList and shuffles them so they will be in a random order
+	 */
+	private void setQuestionsAndAnswers() {
+		String question="";
+		while(!question.equals("Game Ended")) {
+			question=ReadFile.nextLine();
+			if (question.equals("Game Ended")) {
+				Collections.shuffle(answers);//shuffles the answers so they will be in a random order	
+				return;
+			}
+			answers.add(new Answers(question, ReadFile.nextLine(), ReadFile.nextLine(), ReadFile.nextLine(), ReadFile.nextLine()));
+		}
+
+
+	}
+
 	/*
 	 * This method restarts the game if all questions in the TriviaQuestions file were answered
 	 */
 	private void restart() {
 		game.setscore(0);
 		ReadFile.openFile();
+		indexOfNextQuestion=0;
+		answers=new ArrayList<Answers>();//creates the arrayList again, so will delete all the previous Answers stored in the arrayList
+		setQuestionsAndAnswers();//i could have just shuffle the answers arrayList again because i use the same file for the questions if the player chooses to play again, but i did it this way so it will be possible to change to a different file more easily and then change the questions and answers 
 	}
-	
+
 }
